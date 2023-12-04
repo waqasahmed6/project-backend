@@ -1,6 +1,7 @@
 import userloginmodel from "../model/user_login/index.js";
 import { compare, hash } from "bcrypt";
 import Jwt from "jsonwebtoken";
+import mailer from "../email/index.js";
 
 const user_logincontroller = {
   register: async (req, res) => {
@@ -52,6 +53,14 @@ const user_logincontroller = {
       const token = Jwt.sign(info, process.env.JSON_SECRET, {
         expiresIn: "2d",
       });
+
+      mailer({
+        from: "waqas@mr10.com",
+        to: data.useremail,
+        subject: "Login Notification 1",
+        text: "We detected a new login if that wasn't ypu please contact support or reset password",
+      });
+
       req.session.token = token;
       req.session.user = info;
       req.session.save();
@@ -62,4 +71,4 @@ const user_logincontroller = {
     }
   },
 };
-export default user_logincontroller;
+export default user_logincontroller
