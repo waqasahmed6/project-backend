@@ -3,8 +3,8 @@ import followercontroller from "../../controller/follower.js";
 const followerrouter =Router()
 
 
-followerrouter.post("/create",followercontroller.create)
-followerrouter.post("/findone",followercontroller.findone)
+followerrouter.post("/",followercontroller.create)
+followerrouter.get("/",followercontroller.findall)
 
 
 export default followerrouter

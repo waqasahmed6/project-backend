@@ -23,10 +23,29 @@ const userfollowercontroller = {
   findall: async (req, res) => {
     try {
     const response = await userFollowerService.findall(req)
-    res.json(response)
+    res.json({message:"there we go",response})
     } catch (err) {
       res.json({ err: "csdsd" ,err});
     }
   },
+
+  findpost:async(req,res)=>{
+    const{followerId}=req.params
+    try {
+      const follower= await userfollowermodel.findAll({
+        where:{followerId}
+      })
+      const user=follower.map((ele)=>ele.userId)
+      const userpost =await postmodel.findAll({
+        where:{userId:user}
+        
+      })
+      res.json({userpost})
+    } catch (error) {}
+  }
+  // console.log(user)
+
+
 };
 export default userfollowercontroller;
+;

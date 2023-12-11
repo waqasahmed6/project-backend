@@ -16,4 +16,6 @@ commentModel.belongsTo(postmodel)
 postmodel.hasMany(likemodel)
 likemodel.belongsTo(postmodel)
 
+
+
 export default postmodel;

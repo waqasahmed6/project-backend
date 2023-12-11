@@ -3,15 +3,15 @@ import sequelizes from "../../db/config.js"
 
 
 const userloginmodel = sequelizes.define("user_login",{
-username:{
+userName:{
     type:DataTypes.STRING,
     allowNull:false
 },
-useremail:{
+userEmail:{
     type:DataTypes.STRING,
     allowNull:false
 },
-userpassword:{
+userPassword:{
     type:DataTypes.STRING,
     allowNull:false
 },

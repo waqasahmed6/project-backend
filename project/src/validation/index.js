@@ -5,9 +5,9 @@ const UserValidator = {
         try{
             const body=req.body
             const schema =Joi.object({
-                username: Joi.string().min(3).max(15).required(),
-                useremail: Joi.string().min(3).max(15).required(),
-                userpassword: Joi.string().min(3).max(15).required(),
+                userName: Joi.string().min(3).max(15).required(),
+                userEmail: Joi.string().min(3).max(15).required(),
+                userPassword: Joi.string().min(3).max(15).required(),
             })
             const{error,value}=schema.validate(body)
             if(error){

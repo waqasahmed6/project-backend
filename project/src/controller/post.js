@@ -1,20 +1,24 @@
 import likemodel from "../model/like/index.js";
 import postmodel from "../model/post/index.js";
 import commentModel from "../model/comment/index.js";
+import usermodel from "../model/user/index.js"
 
 const postcontroller={
     create: async(req,res)=>{
         try{
-            const {post}=req.body
+            
+    const {post,followerId}=req.body
   await postmodel.create({
 post,
-userId:3
+userId:req.session.user?.id,
+followerId
   })
+  console.log(req.session.user?.id,"hg")
   res.json("post added succesfully")
         }catch(err){console.log("something went wrong post not added in db "+err)}
     },
     findone: async(req,res)=>{
-        const{id}=req.body
+        const{id}=req.params
         try{
           const data= await postmodel.findOne({
                where:{id},
@@ -27,7 +31,7 @@ userId:3
     },
     delete:async(req,res)=>{
         try{
-            const {id}=req.body
+            const {id}=req.params
            const data= await postmodel.findOne({
                 where :{id}
             })
@@ -41,7 +45,7 @@ userId:3
     },
     update:async(req,res)=>{
         try{
-            const {id}=req.body
+            const {id}=req.params
             const{post}=req.body
            const data= await postmodel.findOne({
                 where :{id}
@@ -56,34 +60,24 @@ userId:3
         }catch(err){err}
     },
 
+    post_user:async(req,res)=>{
 
-
-    get:async(req,res)=>{
-
-        const {id}=req.body
-  
+        const {id}=req.params
         const show=  await postmodel.findOne({
            where:{id},
-           include:[likemodel,commentModel]
+           include:[usermodel]
   
         })
-  res.json({message:"user found",show})
+             res.json({message:"post found",show})
      },
-
      findall:async(req,res)=>{
-
-        
-  
         const show=  await postmodel.findAll({
-        
            include:[likemodel,commentModel]
   
         })
-  res.json({message:"user found",show})
+  res.json({message:"posts found",show})
      }
      
-     
-
 }
 
 export default postcontroller

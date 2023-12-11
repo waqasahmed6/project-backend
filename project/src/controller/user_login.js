@@ -6,19 +6,19 @@ import mailer from "../email/index.js";
 const user_logincontroller = {
   register: async (req, res) => {
     try {
-      const { username, useremail, userpassword } = req.body;
+      const { userName, userEmail, userPassword } = req.body;
       const response = await userloginmodel.findOne({
-        where: { useremail },
+        where: { userEmail },
       });
       if (response) {
         res.json({ messge: "email already registered" });
       } else {
-        const hash_pass = await hash(userpassword, 10);
+        const hash_pass = await hash(userPassword, 10);
 
         const created = await userloginmodel.create({
-          username,
-          useremail,
-          userpassword: hash_pass,
+          userName,
+          userEmail,
+          userPassword: hash_pass,
         });
         res.json({ message: "registered succesfully" });
       }
@@ -28,16 +28,16 @@ const user_logincontroller = {
   },
   login: async (req, res) => {
     try {
-      const { useremail, userpassword } = req.body;
+      const { userEmail, userPassword } = req.body;
 
       const data = await userloginmodel.findOne({
-        where: { useremail },
+        where: { userEmail },
       });
       if (!data) {
         res.json({ message: "invalid email" });
       }
 
-      const compares = await compare(userpassword, data.userpassword);
+      const compares = await compare(userPassword, data.userPassword);
       console.log(compares);
 
       if (!compares) {
@@ -46,8 +46,7 @@ const user_logincontroller = {
 
       const info = {
         id: data.id,
-        useremail: data.useremail,
-        
+        useremail: data.userEmail,
       };
 
       const token = Jwt.sign(info, process.env.JSON_SECRET, {
@@ -56,19 +55,20 @@ const user_logincontroller = {
 
       mailer({
         from: "waqas@mr10.com",
-        to: data.useremail,
+        to: data.userEmail,
         subject: "Login Notification 1",
         text: "We detected a new login if that wasn't ypu please contact support or reset password",
       });
 
-      req.session.token = token;
       req.session.user = info;
+      req.session.token = token;
       req.session.save();
 
-   res.json({ messgae: "login sucessfully", token,info });
+      res.json({ messgae: "login sucessfully", token, info });
+      console.log(req.session.user?.id)
     } catch (err) {
       ({ err, message: "somethind bad happen" });
     }
   },
 };
-export default user_logincontroller
+export default user_logincontroller;

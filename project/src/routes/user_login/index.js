@@ -6,7 +6,7 @@ const loginrouter=Router()
 
 
 loginrouter.post("/register" ,  UserValidator.create ,user_logincontroller.register)
-loginrouter.post("/login",user_logincontroller.login)
+loginrouter.post("",user_logincontroller.login)
 
 
 

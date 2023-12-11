@@ -3,8 +3,9 @@ const userfollowerrouter =Router()
 import userfollowercontroller from "../../controller/userfollower.js";
 
 
-userfollowerrouter.post("/create",userfollowercontroller.create)
-userfollowerrouter.post("/findall",userfollowercontroller.findall)
+userfollowerrouter.post("/",userfollowercontroller.create)
+userfollowerrouter.get("/:userId/followerpost",userfollowercontroller.findall)
+userfollowerrouter.get("/:followerId/userPost",userfollowercontroller.findpost)
 
 
 

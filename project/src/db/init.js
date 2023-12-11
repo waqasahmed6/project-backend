@@ -5,6 +5,7 @@ import likemodel from "../model/like/index.js"
 import followermodel from "../model/follower/index.js"
 import userfollowermodel from "../model/userfollower/index.js"
 import loginmodel from "../model/user_login/index.js"
+import ImagesModel from "../model/images/index.js"
 
 const initdb = async()=>{
 await loginmodel.sync({
@@ -30,6 +31,10 @@ await followermodel.sync({
     force:false
 }),
 await userfollowermodel.sync({
+    alter:true,
+    force:false
+}),
+await ImagesModel.sync({
     alter:true,
     force:false
 })

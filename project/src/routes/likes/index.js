@@ -3,9 +3,7 @@ import likecontroller from "../../controller/like.js";
 const likerouter =Router()
 
 
-
-
-likerouter.post("/addlikes",likecontroller.like)
-// likerouter.post("/findlikes",likecontroller.findlike)
+likerouter.post("/",likecontroller.like)
+likerouter.get("/:id",likecontroller.find)
 
 export default likerouter

@@ -6,6 +6,7 @@ import likerouter from "./likes/index.js";
 import followerrouter from "./follower/index.js";
 import userfollowerrouter from "./userfollower/index.js";
 import loginrouter from "./user_login/index.js";
+import imageRouter from "./imageRouter/index.js";
 
 const allroutes = Router()
 
@@ -13,10 +14,11 @@ const allroutes = Router()
 
 allroutes.use("/post",postrouter)
 allroutes.use("/user",userRouter)
-allroutes.use("/comment",commentrouter )
+allroutes.use("/comments",commentrouter )
 allroutes.use("/likes",likerouter)
 allroutes.use("/follower",followerrouter)
 allroutes.use("/userfollower",userfollowerrouter)
-allroutes.use("/user",loginrouter)
+allroutes.use("/image",imageRouter)
+// allroutes.use("/user",loginrouter)
 
 export default allroutes

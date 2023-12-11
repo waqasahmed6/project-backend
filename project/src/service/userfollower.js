@@ -20,25 +20,33 @@ const userFollowerService = {
   },
 
   findall: async (req, res) => {
+    const {userId}=req.params
     try {
       const user = await userfollowermodel.findAll({
-        
-        where:{
-            userId:1
-        }
-        });
+        where: {
+          userId,
+        },
+      });
+      // console.log(user)
 
-const followers = user.map(ele=>ele.followerId)
-
+      const followers = user.map((ele) => ele.followerId);
 
       const followerPosts = await postmodel.findAll({
-        // include: [usermodel],
-        where:{userId:followers}
+        where: { followerId: followers },
       });
-     return{ followerPosts };
+      
+      return { followerPosts };
     } catch (err) {
-      res.json({ err: "csdsd" ,err});
+      res.json({ err: "csdsd", err });
     }
   },
+  
 };
+
+
+
+
+
+
+
 export default userFollowerService;

@@ -3,10 +3,11 @@ import commentcontroller from "../../controller/comment.js";
 const commentrouter =Router()
 
 
+// commentrouter.post("/post/:post_id/comment",commentcontroller.create)
 
-commentrouter.post("/create",commentcontroller.create)
-commentrouter.delete("/delete",commentcontroller.delete)
-commentrouter.put("/update",commentcontroller.update)
-commentrouter.post("/findall",commentcontroller.findall)
+commentrouter.post("/",commentcontroller.create)
+commentrouter.delete("/:id",commentcontroller.delete)
+commentrouter.put("/:id",commentcontroller.update)
+commentrouter.get("/",commentcontroller.findall)
 
 export default commentrouter

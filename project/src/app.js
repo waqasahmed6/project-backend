@@ -1,5 +1,4 @@
 import "dotenv/config"
-
 import express from "express";
 import sequelizes, { connectdb } from "./db/config.js";
 import initdb from "./db/init.js";
@@ -8,6 +7,9 @@ import Session from "express-session";
 import Sequelizestore from "connect-session-sequelize"
 import session from "express-session";
 import AuthenticateMiddleware from "./middleware/authenticate.js";
+import path from "path"
+const __dirname = path.resolve();
+
 const port = process.env.PORT;
 
 const app = express();
@@ -28,6 +30,8 @@ app.use(session({
 }))
 
 mySequelizeStore1.sync()
+
+app.use("/image", express.static('public/images'));
 
 initdb()
   .then(() => console.log("db sync"))

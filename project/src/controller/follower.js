@@ -18,7 +18,7 @@ const followercontroller = {
     }catch(err){res.json({message:"error occoured  during db "+err})}
     },
 
-    findone:async(req,res)=>{
+    findall:async(req,res)=>{
         try{
           const data = await followermodel.findAll({
             include:[usermodel]

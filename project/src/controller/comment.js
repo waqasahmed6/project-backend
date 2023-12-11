@@ -6,12 +6,11 @@ const commentcontroller ={
 
         create:async(req,res)=>{
             try{
-                const {comment}=req.body
-                const {postId}=req.body
+     const {comment,postId,userId}=req.body
        await commentmodel.create({
-    comment,
-    postId,
-    userId:1
+             comment,
+            postId,
+            userId //req.session.user?.id
 
       })
       res.json("comment added succesfully")
@@ -20,7 +19,7 @@ const commentcontroller ={
         
         delete:async(req,res)=>{
             try{
-                const {id}=req.body
+                const {id}=req.params
                const data= await commentmodel.findOne({
                     where :{id}
                 })
@@ -34,7 +33,7 @@ const commentcontroller ={
         },
         update:async(req,res)=>{
             try{
-                const {id}=req.body
+                const {id}=req.params
                 const{comment}=req.body
                const data= await commentmodel.findOne({
                     where :{id}
